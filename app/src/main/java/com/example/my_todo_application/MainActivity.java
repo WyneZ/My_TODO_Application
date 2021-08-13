@@ -1,6 +1,7 @@
 package com.example.my_todo_application;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +26,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private RecyclerView rv;
     private FloatingActionButton fab;
     private ToDoAdapter toDoAdapter;
@@ -47,13 +49,7 @@ public class MainActivity extends AppCompatActivity {
         rv.setAdapter(toDoAdapter);
 
         todoList = dbh.getAllTasks();
-
-        ToDoClass tasks = new ToDoClass();
-        tasks.setId(1);
-        tasks.setTask("This is Task");
-        tasks.setStatus(0);
-
-        todoList.add(tasks);
+        Collections.reverse(todoList);
 
         toDoAdapter.setTasks(todoList);
         
@@ -62,11 +58,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "fab is clicked", Toast.LENGTH_SHORT).show();
-                showAddNewTask();
             }
         });
     }
-
+/*
     private void showAddNewTask() {
         BottomSheetDialog bsd = new BottomSheetDialog(this);
         bsd.setContentView(R.layout.new_task);
@@ -76,11 +71,30 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isUpdate = false;
 
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = newTaskText.getText().toString();
+                if(isUpdate) {
+                    dbh.updateTask(1, text);
+                }
+                else {
+                    ToDoClass item = new ToDoClass();
+                    item.setTask(text);
+                    item.setStatus(0);
+                    dbh.insertTask(item);
+                }
+
+            }
+        });
+
+
         bsd.show();
     }
+ */
 
     //For PopUpMenu
-    private void popup(View v) {
+    public void popup(View v) {
         PopupMenu pm = new PopupMenu(MainActivity.this, v);
         pm.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
