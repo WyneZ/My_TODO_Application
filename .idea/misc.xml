@@ -8,8 +8,10 @@
         <entry key="app/src/main/res/layout/activity_icon.xml" value="0.32447916666666665" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.32447916666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.309375" />
+        <entry key="app/src/main/res/layout/menu_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/new_task.xml" value="0.32447916666666665" />
         <entry key="app/src/main/res/layout/task_layout.xml" value="0.32447916666666665" />
+        <entry key="app/src/main/res/menu/menu_list.xml" value="0.4010416666666667" />
       </map>
     </option>
   </component>

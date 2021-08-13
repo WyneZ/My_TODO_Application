@@ -2,4 +2,6 @@
     <string name="app_name">My_TODO_Application</string>
     <string name="save">Save</string>
     <string name="new_task">new Task</string>
+    <string name="toEdit">Edit</string>
+    <string name="toDelete">Delete</string>
 </resources>
