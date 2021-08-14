@@ -1,13 +1,19 @@
 package com.example.my_todo_application.Adapter;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.my_todo_application.AddNewTask;
@@ -69,6 +75,10 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
+    public Context getContext() {
+        return activity;
+    }
+
     public void delete(int position) {
         ToDoClass item = taskList.get(position);
         dbh.deleteTask(item.getId());
@@ -86,12 +96,46 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         fragment.show(activity.getSupportFragmentManager(), AddNewTask.TAG);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         CheckBox task;
+        CardView cardView;
 
         ViewHolder(View view) {
             super(view);
             task = view.findViewById(R.id.TodoCheckBox);
+            cardView = view.findViewById(R.id.CardView);
+            cardView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+                showpopupmenu(v);
+        }
+
+        private void showpopupmenu(View v) {
+            PopupMenu menu = new PopupMenu(v.getContext(), v);
+            menu.inflate(R.menu.menu_list);
+            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.Edit:
+                            ToDoClass task = taskList.get(getAdapterPosition());
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("id", task.getId());
+                            bundle.putString("task", task.getTask());
+                            AddNewTask fragment = new AddNewTask();
+                            fragment.setArguments(bundle);
+                            fragment.show(activity.getSupportFragmentManager(), AddNewTask.TAG);
+                            return true;
+
+                        case R.id.Delete:
+                            delete(getAdapterPosition());
+                    }
+                    return false;
+                }
+            });
+            menu.show();
         }
     }
 }

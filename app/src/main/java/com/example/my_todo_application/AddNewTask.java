@@ -49,10 +49,11 @@ public class AddNewTask extends BottomSheetDialogFragment {
         saveBtn = getView().findViewById(R.id.SaveBtn);
 
         boolean isUpdate = false;
-        Bundle bundle = getArguments();
+        final Bundle bundle = getArguments();
         if(bundle != null) {
             isUpdate = true;
             String task = bundle.getString("task");
+            assert  task != null;
             if(task.length() < 0)
                 saveBtn.setTextColor(Color.BLUE);
         }

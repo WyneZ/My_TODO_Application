@@ -72,41 +72,10 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         toDoAdapter.setTasks(todoList);
         toDoAdapter.notifyDataSetChanged();
     }
-/*
-    private void showAddNewTask() {
-        BottomSheetDialog bsd = new BottomSheetDialog(this);
-        bsd.setContentView(R.layout.new_task);
-
-        EditText newTaskText = bsd.findViewById(R.id.addTaskText);
-        Button saveBtn = bsd.findViewById(R.id.SaveBtn);
-
-        boolean isUpdate = false;
-
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = newTaskText.getText().toString();
-                if(isUpdate) {
-                    dbh.updateTask(1, text);
-                }
-                else {
-                    ToDoClass item = new ToDoClass();
-                    item.setTask(text);
-                    item.setStatus(0);
-                    dbh.insertTask(item);
-                }
-
-            }
-        });
-
-
-        bsd.show();
-    }
- */
-
+    /*
     //For PopUpMenu
     public void popup(RecyclerView.ViewHolder viewHolder, View v) {
-        final int position = viewHolder.getAdapterPosition();
+
         PopupMenu pm = new PopupMenu(MainActivity.this, v);
         pm.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -114,11 +83,10 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
                 switch (item.getItemId()) {
                     case R.id.Edit:
                         Toast.makeText(MainActivity.this, "Editting", Toast.LENGTH_SHORT).show();
-                        toDoAdapter.edit(position);
                         break;
                     case R.id.Delete:
                         Toast.makeText(MainActivity.this, "Deleting", Toast.LENGTH_SHORT).show();
-                        toDoAdapter.delete(position);
+                        break;
                 }
                 return false;
             }
@@ -128,5 +96,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         mi.inflate(R.menu.menu_list, pm.getMenu());
         pm.show();
     }
+
+     */
 
 }
