@@ -1,28 +1,19 @@
 package com.example.my_todo_application;
 
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.example.my_todo_application.Adapter.ToDoAdapter;
 import com.example.my_todo_application.DB.DatabaseHandler;
 import com.example.my_todo_application.ToDoModel.ToDoClass;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -60,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
             @Override
             public void onClick(View v) {
                 AddNewTask.abc().show(getSupportFragmentManager(), AddNewTask.TAG);
-                Toast.makeText(MainActivity.this, "fab is clicked", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -72,31 +62,5 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         toDoAdapter.setTasks(todoList);
         toDoAdapter.notifyDataSetChanged();
     }
-    /*
-    //For PopUpMenu
-    public void popup(RecyclerView.ViewHolder viewHolder, View v) {
-
-        PopupMenu pm = new PopupMenu(MainActivity.this, v);
-        pm.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.Edit:
-                        Toast.makeText(MainActivity.this, "Editting", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.Delete:
-                        Toast.makeText(MainActivity.this, "Deleting", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                return false;
-            }
-        });
-
-        MenuInflater mi = getMenuInflater();
-        mi.inflate(R.menu.menu_list, pm.getMenu());
-        pm.show();
-    }
-
-     */
 
 }

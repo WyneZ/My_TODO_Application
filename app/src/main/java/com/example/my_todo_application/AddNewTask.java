@@ -53,8 +53,9 @@ public class AddNewTask extends BottomSheetDialogFragment {
         if(bundle != null) {
             isUpdate = true;
             String task = bundle.getString("task");
+            newTaskText.setText(task);
             assert  task != null;
-            if(task.length() < 0)
+            if(task.length() > 0)
                 saveBtn.setTextColor(Color.BLUE);
         }
         dbh = new DatabaseHandler(getActivity());

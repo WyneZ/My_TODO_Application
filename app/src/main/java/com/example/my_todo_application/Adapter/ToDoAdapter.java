@@ -96,7 +96,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         fragment.show(activity.getSupportFragmentManager(), AddNewTask.TAG);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         CheckBox task;
         CardView cardView;
 
@@ -104,12 +104,19 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
             super(view);
             task = view.findViewById(R.id.TodoCheckBox);
             cardView = view.findViewById(R.id.CardView);
-            cardView.setOnClickListener(this);
+            cardView.setOnLongClickListener(this);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(activity, "Press Long", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         @Override
-        public void onClick(View v) {
-                showpopupmenu(v);
+        public boolean onLongClick(View v) {
+            showpopupmenu(v);
+            return false;
         }
 
         private void showpopupmenu(View v) {
@@ -120,13 +127,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.Edit:
-                            ToDoClass task = taskList.get(getAdapterPosition());
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("id", task.getId());
-                            bundle.putString("task", task.getTask());
-                            AddNewTask fragment = new AddNewTask();
-                            fragment.setArguments(bundle);
-                            fragment.show(activity.getSupportFragmentManager(), AddNewTask.TAG);
+                            edit(getAdapterPosition());
                             return true;
 
                         case R.id.Delete:
