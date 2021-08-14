@@ -1,10 +1,12 @@
 package com.example.my_todo_application;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,7 +26,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DialogCloseListener {
 
 
     private RecyclerView rv;
@@ -57,9 +59,18 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AddNewTask.abc().show(getSupportFragmentManager(), AddNewTask.TAG);
                 Toast.makeText(MainActivity.this, "fab is clicked", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void handleDialogClose(DialogInterface dialog) {
+        todoList = dbh.getAllTasks();
+        Collections.reverse(todoList);
+        toDoAdapter.setTasks(todoList);
+        toDoAdapter.notifyDataSetChanged();
     }
 /*
     private void showAddNewTask() {
@@ -94,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
  */
 
     //For PopUpMenu
-    public void popup(View v) {
+    public void popup(RecyclerView.ViewHolder viewHolder, View v) {
+        final int position = viewHolder.getAdapterPosition();
         PopupMenu pm = new PopupMenu(MainActivity.this, v);
         pm.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -102,10 +114,11 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.Edit:
                         Toast.makeText(MainActivity.this, "Editting", Toast.LENGTH_SHORT).show();
+                        toDoAdapter.edit(position);
                         break;
                     case R.id.Delete:
                         Toast.makeText(MainActivity.this, "Deleting", Toast.LENGTH_SHORT).show();
-                        break;
+                        toDoAdapter.delete(position);
                 }
                 return false;
             }

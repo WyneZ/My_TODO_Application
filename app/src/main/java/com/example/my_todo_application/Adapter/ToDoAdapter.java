@@ -69,11 +69,14 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void deleteTask(int position) {
-
+    public void delete(int position) {
+        ToDoClass item = taskList.get(position);
+        dbh.deleteTask(item.getId());
+        taskList.remove(position);
+        notifyItemRemoved(position);
     }
 
-    public void editTask(int position) {
+    public void edit(int position) {
         ToDoClass item = taskList.get(position);
         Bundle bundle = new Bundle();
         bundle.putInt("id", item.getId());
